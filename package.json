@@ -1,0 +1,23 @@
+{
+  "name": "reactandfluxdemo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anikolaienko/ReactAndFluxDemo.git"
+  },
+  "author": "Andrii Nikolaienko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anikolaienko/ReactAndFluxDemo/issues"
+  },
+  "homepage": "https://github.com/anikolaienko/ReactAndFluxDemo#readme",
+  "dependencies": {
+    "gulp-connect": "^5.0.0",
+    "gulp-open": "^2.0.0"
+  }
+}
