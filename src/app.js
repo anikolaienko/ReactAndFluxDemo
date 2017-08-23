@@ -1,3 +1,4 @@
-var message = require('./message.js');
+import React from 'react';
+import App from './components/App.jsx';
 
-document.write(`This is the message: ${message}`);
+React.render(<App />, document.getElementById('container'));

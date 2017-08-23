@@ -1,10 +1,10 @@
+var CopyWebpackPlugin = require('copy-webpack-plugin');
 var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
   entry: {
     main: [
-      './src/message.js',
       './src/app.js'
     ]
   },
@@ -15,13 +15,18 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /.js?$/,
+        test: /.jsx?$/,
         exclude: /node_modules/,
         loaders: 'babel-loader',
         query: {
-          presets: ['es2015']
+          presets: ['es2015', 'react']
         }
       }
     ]
-  }
+  },
+  plugins: [
+    new CopyWebpackPlugin([
+      { context: 'src', from:'*.html', to: ''}
+    ])
+  ]
 };

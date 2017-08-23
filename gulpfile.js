@@ -1,6 +1,9 @@
 "use string";
 
 var gulp = require('gulp');
+var webpack = require('webpack');
+var webpackStream = require('webpack-stream');
+var webpackConfig = require('./webpack.config.js');
 var connect = require('gulp-connect');
 var open = require('gulp-open');
 
@@ -9,6 +12,7 @@ var config = {
     devBaseUrl: 'http://localhost',
     paths: {
         html: './src/*.html',
+        js: './src/*.js',
         dist: 'dist'
     }
 }
@@ -27,14 +31,15 @@ gulp.task('open', ['connect'], function(){
         .pipe(open({ url: config.devBaseUrl + ':' + config.port + '/'}));
 });
 
-gulp.task('html', function() {
-    gulp.src(config.paths.html)
+gulp.task('bundle', function() {
+    gulp.src([config.paths.html, config.paths.js])
+        .pipe(webpackStream(webpackConfig, webpack))
         .pipe(gulp.dest(config.paths.dist))
         .pipe(connect.reload());
 });
 
 gulp.task('watch', function(){
-    gulp.watch(config.paths.html, ['html']);
-})
+    gulp.watch(config.paths.html, ['bundle']);
+});
 
-gulp.task('default', ['open', 'html', 'watch']);
+gulp.task('default', ['open', 'bundle', 'watch']);
