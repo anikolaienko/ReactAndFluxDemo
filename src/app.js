@@ -1,3 +1,3 @@
 var message = require('./message.js');
 
-document.write(message);
+document.write(`This is the message: ${message}`);
