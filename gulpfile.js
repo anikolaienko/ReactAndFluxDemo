@@ -12,7 +12,8 @@ var config = {
     devBaseUrl: 'http://localhost',
     paths: {
         html: './src/*.html',
-        js: './src/*.js',
+        js: './src/**/*.js',
+        jsx: './src/**/*.jsx',
         dist: 'dist'
     }
 }
@@ -32,14 +33,14 @@ gulp.task('open', ['connect'], function(){
 });
 
 gulp.task('bundle', function() {
-    gulp.src([config.paths.html, config.paths.js])
+    gulp.src([config.paths.html, config.paths.js, config.paths.jsx])
         .pipe(webpackStream(webpackConfig, webpack))
         .pipe(gulp.dest(config.paths.dist))
         .pipe(connect.reload());
 });
 
 gulp.task('watch', function(){
-    gulp.watch(config.paths.html, ['bundle']);
+    gulp.watch([config.paths.html, config.paths.js, config.paths.jsx], ['bundle']);
 });
 
 gulp.task('default', ['open', 'bundle', 'watch']);

@@ -2,7 +2,7 @@ import React from 'react';
 
 class App extends React.Component {
     constructor(){
-        super();
+        super(); 
 
         this.state = {
             messages: [
@@ -11,9 +11,9 @@ class App extends React.Component {
             ]
         };
     }
-
+  
     render() {
-        var messageNodes = this.state.messages.map((massage) => {
+        var messageNodes = this.state.messages.map((message) => {
             return (
                 <div>{message}</div>
             );
