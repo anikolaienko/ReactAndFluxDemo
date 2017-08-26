@@ -6,8 +6,8 @@ class App extends React.Component {
 
         this.state = {
             messages: [
-                'hi there how are you?',
-                'I am fine, and you?'
+                {id: 1, name:'hi there how are you?'},
+                {id: 2, name:'I am fine, and you?'}
             ]
         };
     }
@@ -15,7 +15,7 @@ class App extends React.Component {
     render() {
         var messageNodes = this.state.messages.map((message) => {
             return (
-                <div>{message}</div>
+                <div key={message.id}>{message.name}</div>
             );
         });
 

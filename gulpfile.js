@@ -1,5 +1,7 @@
 "use string";
 
+// TODO: Consider using npm instead of GULP, it will be simpler.
+
 var gulp = require('gulp');
 var webpack = require('webpack');
 var webpackStream = require('webpack-stream');
@@ -14,6 +16,8 @@ var config = {
         html: './src/*.html',
         js: './src/**/*.js',
         jsx: './src/**/*.jsx',
+        css: ['node_modules/bootstrap/dist/css/bootstrap.min.css',
+            'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'],
         dist: 'dist'
     }
 }
@@ -28,12 +32,18 @@ gulp.task('connect', function(){
 });
 
 gulp.task('open', ['connect'], function(){
-    gulp.src('dist/index.html')
-        .pipe(open({ url: config.devBaseUrl + ':' + config.port + '/'}));
+    gulp.src(__filename)
+        .pipe(open({uri: 'http://localhost:' + config.port}));
 });
 
 gulp.task('bundle', function() {
-    gulp.src([config.paths.html, config.paths.js, config.paths.jsx])
+    var resources = [];
+    resources.push(config.paths.html);
+    resources.push(config.paths.js);
+    resources.push(config.paths.jsx);
+    resources = resources.concat(config.paths.css);
+
+    gulp.src(resources)
         .pipe(webpackStream(webpackConfig, webpack))
         .pipe(gulp.dest(config.paths.dist))
         .pipe(connect.reload());
@@ -43,4 +53,4 @@ gulp.task('watch', function(){
     gulp.watch([config.paths.html, config.paths.js, config.paths.jsx], ['bundle']);
 });
 
-gulp.task('default', ['open', 'bundle', 'watch']);
+gulp.task('default', ['bundle', 'open', 'watch']);
